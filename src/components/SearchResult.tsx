@@ -1,7 +1,8 @@
+import { User } from '../models/user';
 import './SearchResult.scss';
 
 type Props = {
-  result: any;
+  result: User;
 };
 const SearchResult = ({ result }: Props) => {
   return (
