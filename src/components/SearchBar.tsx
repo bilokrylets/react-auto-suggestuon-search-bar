@@ -1,6 +1,6 @@
 import { FaSearch } from 'react-icons/fa';
 import './SearchBar.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User } from '../models/user';
 
 type Props = {
@@ -9,7 +9,18 @@ type Props = {
 const SearchBar = ({ setResults }: Props) => {
   const [input, setInput] = useState('');
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      fetchData(input);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [input]);
+
   const fetchData = (value: string) => {
+    console.log(value);
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => response.json())
       .then((json) => {
@@ -27,7 +38,6 @@ const SearchBar = ({ setResults }: Props) => {
 
   const handleChange = (value: string) => {
     setInput(value);
-    fetchData(value);
   };
 
   return (
